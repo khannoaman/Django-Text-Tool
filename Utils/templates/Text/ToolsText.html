@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+<!-- Links -->
+
+{% block links %}
+
+	
+	<script src="https://kit.fontawesome.com/09e857ebf9.js" crossorigin="anonymous"></script>
+
+
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/ToolsText.css' %}">
+
+	
+	{% block textlinks %}
+		
+	{% endblock textlinks %}
+
+
+{% endblock links %}
+
+
+<!-- Sidebar links -->
+
+  {% block sidebarLink %}
+  					<a class="nav-link" href="{% url 'caseConverter' %}">Case Converter</a>
+                    <a class="nav-link" href="{% url 'asciiConverter' %}">ASCII <i class="fa fa-arrows-h" aria-hidden="true"></i> Text Converter</a>
+                    <a class="nav-link" href="{% url 'binaryConverter' %}">Binary <i class="fa fa-arrows-h" aria-hidden="true"></i> Text Converter</a>
+                    <a class="nav-link" href="{% url 'octalConverter' %}">Octal <i class="fa fa-arrows-h" aria-hidden="true"></i> Text Converter</a>
+                    <a class="nav-link" href="{% url 'hexConverter' %}">Hexadecimal <i class="fa fa-arrows-h" aria-hidden="true"></i> Text Converter</a>
+                    <a class="nav-link" href="{% url 'wordOccurrence' %}">Word Occurrence Counter</a>
+                    <a class="nav-link" href="{% url 'extractEmail' %}">Extract Emails From Text</a>
+                    <a class="nav-link" href="{% url 'extractUrl' %}">Extract URLS From Text</a>
+                    <a class="nav-link" href="{% url 'extractPhoneno' %}">Extract Phone Nos. From Text</a>
+                    <a class="nav-link" href="{% url 'findSubText' %}">Find Subtext From Text</a>
+                    <a class="nav-link" href="{% url 'replaceSubText' %}">Replace Subtext From Text</a>
+                        
+  {% endblock sidebarLink %}
+
+
+<!-- Heading -->
+
+{% block Heading %}{% endblock Heading %}
+
+
+<!-- Main Content -->
+
+{% block content %}
+
+<div id="count">
+		      		
+		     	<h5 class="d-lg-inline">Characters: <span id="char-count">0</span> / Words: <span id="word-count">0</span> / Lines: <span id="line-count">0</span></h5>
+		      	<div class="d-lg-inline float-md-right text-center">
+
+		      			<button id="undo" onclick="Undo()"><i class="fa fa-undo" aria-hidden="true"></i></button>
+		      			<button id="clear" onclick="Clear()">Clear</button>
+		      			<button id="copy" onclick="Copy()"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</button>
+		      			<button id="download"><i class="fa fa-download" aria-hidden="true"></i></button> 
+
+		      	</div>
+</div>
+	
+
+<!-- Text Tool Content -->
+
+{% block textContent %}
+	
+{% endblock textContent %}
+
+{% endblock content %}
+
+
+<!-- Main Script -->
+
+{% block script %}
+<script>
+
+//Counting Characters,words and lines
+let char_count=document.querySelector("#char-count");
+let word_count=document.querySelector("#word-count");
+let line_count=document.querySelector("#line-count");
+
+let undo='';
+let inputText=document.querySelector(".input");
+let outputText=document.querySelector(".output");
+
+let download_btn=document.querySelector("#download");
+
+<!-- Change Function -->
+
+function handleChange()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+let data = JSON.parse(this.responseText);
+char_count.innerHTML=data.char_count
+word_count.innerHTML=data.word_count
+line_count.innerHTML=data.line_count
+			      
+}
+};
+xhttp.open("POST", "{% url 'count' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.send(JSON.stringify({text:inputText.value})); 			
+}
+
+<!-- Undo -->
+function Undo()
+{
+	inputText.value=undo;
+	handleChange();
+}
+
+<!-- Clear -->
+function Clear()
+{
+	undo=inputText.value;
+	inputText.value='';
+	outputText.value='';
+	handleChange();
+}
+
+<!-- Copy -->
+function Copy()
+{
+	outputText.select();
+	document.execCommand('copy');
+	window.getSelection().removeAllRanges();
+}
+
+<!-- Download Text -->
+
+download_btn.addEventListener("click",function()
+{
+
+
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+// Trick for making downloadable link
+a = document.createElement('a');
+a.href = window.URL.createObjectURL(xhttp.response);
+// Give filename you wish to download
+a.download = "Case Converter.doc";
+a.style.display = 'none';
+document.body.appendChild(a);
+a.click();
+					      
+}
+};
+xhttp.open("POST", "{% url 'download' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.responseType= 'blob'
+xhttp.send(JSON.stringify({text:outputText.value})); 
+							
+								
+}
+)
+
+<!-- Counting Text -->
+
+inputText.addEventListener("input",handleChange)
+
+
+
+</script>
+
+{% block textScript %}
+	
+{% endblock textScript %}
+
+{% endblock script %}
+

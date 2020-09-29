@@ -1,0 +1,35 @@
+textarea
+{
+width: 48%;
+height: 40vh;
+margin: 0 1%;
+padding: 10px;
+resize: none;
+border:2px solid rgb(45,45,45);
+border-radius: 15px;
+}
+
+textarea:focus
+{
+	outline: none;
+	border:2px solid #1967be;
+}
+
+.in-out
+{
+	margin: 4% 0;
+}
+
+#mySelect
+{
+	width: 50%;
+	height: 40px;
+	border-radius: 20px;
+	padding: 0 20px;
+	text-align: center;
+	margin: 20px 0;
+	border:2px solid rgb(45,45,45);
+	background-color: rgb(45,45,45);
+	color: #dfeaf6;
+}
+

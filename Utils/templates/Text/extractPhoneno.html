@@ -1,0 +1,55 @@
+{% extends "Text/ToolsText.html" %}
+{% load static %}
+
+
+{% block textlinks %}
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/extractPhoneno.css' %}">
+{% endblock textlinks %}
+
+
+
+{% block Heading %}Extract Phone Nos. From Text{% endblock Heading %}
+
+
+
+{% block textContent %}
+
+				<div class="in-out text-center">
+
+					<textarea class="input float-left" placeholder="Enter Your Text Here.." autofocus></textarea>
+
+					<textarea class="output float-left" placeholder="Output Text.." readonly autofocus></textarea>
+
+					<button id="mySelect">Extract Phone Numbers</button>
+
+				</div>
+
+	
+{% endblock textContent %}
+
+{% block textScript %}
+	
+<script type="text/javascript">
+	
+let extract=document.querySelector("#mySelect");
+
+function phoneno_extract()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+let data = JSON.parse(this.responseText);
+outputText.value=data.phonenoExtractor
+}
+};
+xhttp.open("POST", "{% url 'phonenoExtractor' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.send(JSON.stringify({text:inputText.value})); 	
+}
+
+
+extract.addEventListener("click",phoneno_extract);
+
+
+</script>
+{% endblock textScript %}

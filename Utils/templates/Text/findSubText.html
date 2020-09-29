@@ -1,0 +1,89 @@
+{% extends "Text/ToolsText.html" %}
+{% load static %}
+
+
+{% block textlinks %}
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/findSubText.css' %}">
+{% endblock textlinks %}
+
+
+
+{% block Heading %}Find Subtext From Text{% endblock Heading %}
+
+
+
+{% block textContent %}
+
+				<div class="in-out text-center">
+
+					<textarea class="input float-left" placeholder="Enter Your Text Here.." autofocus></textarea>
+
+					<div class="output float-left text-left" id="textarea">OUTPUT TEXT</div>
+
+					<input type="text" placeholder="Enter Subtext Here" name="find">
+
+					<button id="mySelect">Find</button>
+
+				</div>
+
+	
+{% endblock textContent %}
+
+{% block textScript %}
+	
+<script type="text/javascript">
+	
+let find_btn=document.querySelector("#mySelect");
+let find=document.querySelector("input[name='find']");
+
+function findText()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+let data = JSON.parse(this.responseText);
+outputText.innerHTML=data.sub_found
+outputText.style.border="2px solid #1967be";
+}
+};
+xhttp.open("POST", "{% url 'subTextFinder' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.send(JSON.stringify({text:inputText.value,find:find.value})); 	
+}
+
+
+find_btn.addEventListener("click",findText);
+
+<!-- Undo -->
+function Undo()
+{
+	inputText.value=undo;
+	outputText.innerHTML='OUTPUT TEXT';
+	find.value='';
+	handleChange();
+}
+
+<!-- Clear -->
+function Clear()
+{
+	undo=inputText.value;
+	inputText.value='';
+	outputText.innerHTML='OUTPUT TEXT';
+	find.value='';
+	outputText.style.border="2px solid rgb(45,45,45)";
+	handleChange();
+}
+
+<!-- Copy -->
+function Copy()
+{
+	var range = document.createRange();
+    range.selectNode(outputText);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+	document.execCommand('copy');
+	window.getSelection().removeAllRanges();
+}
+
+</script>
+{% endblock textScript %}

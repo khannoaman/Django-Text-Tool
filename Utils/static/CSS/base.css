@@ -1,0 +1,108 @@
+/*Navbar Background */
+.bg-light
+{
+    background-color: #dfeaf6!important;
+
+   	
+}
+
+/*Navbar Toggler icon */
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgb(223 234 246)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    transition: transform 1s;
+	
+}
+
+.navbar-light .navbar-toggler {
+	width: 55px;
+	height: 50px;
+	outline: none;
+	background-color: rgb(45,45,45);
+    border-radius: 100%;
+   
+}
+
+
+.ham-activate
+{
+	transform: rotate(90deg);
+}
+
+
+/*Navbar Links */
+.nav-item
+{
+	position: relative;
+	overflow: hidden;
+}
+
+
+.nav-link
+{
+	font-size: 1.5rem;
+	font-family: 'Open Sans', sans-serif;
+
+}
+
+
+
+.navbar-light .navbar-nav .nav-link
+{
+color: rgb(45,45,45);
+}
+
+
+
+
+.navbar-light .navbar-nav .nav-link:hover
+{
+background-color: rgb(45,45,45);
+color: #dfeaf6 ;
+border-radius: 10px;
+
+}
+
+
+
+
+/* Sidebar */
+.nav
+{
+	background-color: #dfeaf6;
+	border-radius: 10px;
+}
+
+/* Sidebar elements */
+
+.nav .nav-link
+{
+	color: rgb(45,45,45);
+	padding: 0.2rem 1rem;
+	font-size: 130%;
+
+}
+
+.nav .nav-link.active
+{
+	background-color: rgb(45,45,45);
+	border-radius: 10px;
+	color: #dfeaf6;
+}
+
+
+#heading
+{
+	font-size: 3.1rem;
+	color: rgb(45,45,45);
+}
+
+@media (min-width: 1080px)
+{
+
+#heading
+{
+	font-size: 5rem;
+}
+
+}

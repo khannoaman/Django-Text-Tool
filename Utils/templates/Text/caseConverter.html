@@ -1,0 +1,292 @@
+{% extends "Text/ToolsText.html" %}
+{% load static %}
+
+
+{% block textlinks %}
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/caseConverter.css' %}">
+{% endblock textlinks %}
+
+
+
+{% block Heading %}Case Converter{% endblock Heading %}
+
+
+
+{% block textContent %}
+
+				<textarea class="input output" placeholder="Enter Your Text Here.." autofocus></textarea>
+
+		      	<div id="convert-buttons" class="text-center" >
+		      		<button id="upperCase">Upper Case</button>
+		      		<button id="lowerCase">Lower Case</button>
+		      		<button id="sentanceCase">Sentance Case</button>
+		      		<button id="titleCase">Title Case</button>
+		      		<button id="swapCase">Swap Case</button>
+		      		<button id="camelCase">Camel Case</button>	
+		      		<button id="snakeCase">Snake Case</button>
+		      		<button id="kebabCase">Kebab Case</button>
+		      		<button id="pascalCase">Pascal Case</button>
+		      		<button id="upperSnakeCase">Upper Snake Case</button>
+		      	</div>
+	
+{% endblock textContent %}
+
+
+{% block textScript %}
+<script type="text/javascript">
+
+<!-- Case Converter Buttons -->
+
+let upper=document.querySelector("#upperCase");
+let lower=document.querySelector("#lowerCase");
+let sentance=document.querySelector("#sentanceCase");
+let title=document.querySelector("#titleCase");
+let swap=document.querySelector("#swapCase");
+let camel=document.querySelector("#camelCase");
+let snake=document.querySelector("#snakeCase");
+let kebab=document.querySelector("#kebabCase");
+let pascal=document.querySelector("#pascalCase");
+let upperSnake=document.querySelector("#upperSnakeCase");
+
+
+<!-- Upper Case -->
+
+upper.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.upperCase
+      
+    }
+  };
+  xhttp.open("POST", "{% url 'upperCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!-- Lower Case -->
+
+lower.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.lowerCase
+      
+    }
+  };
+  xhttp.open("POST", "{% url 'lowerCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!-- Sentance Case -->
+
+sentance.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.sentanceCase
+      
+    }
+  };
+  xhttp.open("POST", "{% url 'sentanceCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+
+<!-- Title Case -->
+
+title.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.titleCase
+      
+    }
+  };
+  xhttp.open("POST", "{% url 'titleCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!-- Swap Case -->
+
+
+swap.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.swapCase
+      
+    }
+  };
+  xhttp.open("POST", "{% url 'swapCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!-- Camel Case -->
+
+
+camel.addEventListener("click",function()
+{
+
+  undo=inputText.value;		
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.camelCase
+      handleChange()
+      
+    }
+  };
+  xhttp.open("POST", "{% url 'camelCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!--Snake Case -->
+
+
+snake.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.snakeCase
+      handleChange()
+    }
+  };
+  xhttp.open("POST", "{% url 'snakeCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!-- Kebab Case -->
+
+
+kebab.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.kebabCase
+      handleChange()
+    }
+  };
+  xhttp.open("POST", "{% url 'kebabCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+<!-- Pascal Case -->
+
+
+pascal.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.pascalCase
+      handleChange()
+    }
+  };
+  xhttp.open("POST", "{% url 'pascalCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+
+
+
+<!-- Upper Snake Case -->
+
+
+upperSnake.addEventListener("click",function()
+{
+
+  undo=inputText.value;
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      let data = JSON.parse(this.responseText);
+      inputText.value=data.upperSnakeCase
+      handleChange()
+    }
+  };
+  xhttp.open("POST", "{% url 'upperSnakeCase' %}", true);
+  xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+  xhttp.send(JSON.stringify({text:inputText.value})); 
+				
+					
+}
+	)
+	
+
+</script>
+{% endblock textScript %}

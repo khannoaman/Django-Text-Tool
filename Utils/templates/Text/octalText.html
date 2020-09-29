@@ -1,0 +1,87 @@
+{% extends "Text/ToolsText.html" %}
+{% load static %}
+
+
+{% block textlinks %}
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/octalText.css' %}">
+{% endblock textlinks %}
+
+
+
+{% block Heading %}Octal <i class="fa fa-arrows-h" aria-hidden="true"></i> Text Converter{% endblock Heading %}
+
+
+
+{% block textContent %}
+
+				<div class="in-out text-center">
+
+					<textarea class="input float-left" placeholder="Enter Your Text Here.." autofocus></textarea>
+
+					<textarea class="output float-left" placeholder="Output Text.." readonly autofocus></textarea>
+
+					<select id="mySelect">
+						<option>Text to Octal Converter</option>
+						<option>Octal to Text Converter</option>
+					</select>	
+
+				</div>
+
+	
+{% endblock textContent %}
+
+
+{% block textScript %}
+	
+<script type="text/javascript">
+	
+let sel_option=document.querySelector("#mySelect");
+
+function octal()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+let data = JSON.parse(this.responseText);
+if(data.Error!=undefined)
+{	
+	Clear();
+	alert(data.Error)
+}
+else
+{
+outputText.value=data.octalConversion
+}			      
+}
+};
+xhttp.open("POST", "{% url 'octalConversion' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.send(JSON.stringify({text:inputText.value,option:sel_option.value})); 	
+}
+
+<!-- Undo -->
+function Undo()
+{
+	inputText.value=undo;
+	handleChange();
+	octal();
+}
+
+inputText.addEventListener("input",octal)
+
+sel_option.addEventListener("change",Clear)
+
+sel_option.addEventListener("change",function(){
+	if(sel_option.value=="Octal to Text Converter")
+	{
+		inputText.placeholder="Enter Octal numbers Here..";
+	}
+	else
+	{
+		inputText.placeholder="Enter Your Text Here..";
+	}
+})
+
+</script>
+
+{% endblock textScript %}

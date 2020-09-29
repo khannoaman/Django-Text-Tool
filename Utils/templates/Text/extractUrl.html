@@ -1,0 +1,55 @@
+{% extends "Text/ToolsText.html" %}
+{% load static %}
+
+
+{% block textlinks %}
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/extractUrl.css' %}">
+{% endblock textlinks %}
+
+
+
+{% block Heading %}Extract URLS From Text{% endblock Heading %}
+
+
+
+{% block textContent %}
+
+				<div class="in-out text-center">
+
+					<textarea class="input float-left" placeholder="Enter Your Text Here.." autofocus></textarea>
+
+					<textarea class="output float-left" placeholder="Output Text.." readonly autofocus></textarea>
+
+					<button id="mySelect">Extract URLS</button>
+
+				</div>
+
+	
+{% endblock textContent %}
+
+{% block textScript %}
+	
+<script type="text/javascript">
+	
+let extract=document.querySelector("#mySelect");
+
+function url_extract()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+let data = JSON.parse(this.responseText);
+outputText.value=data.urlExtractor
+}
+};
+xhttp.open("POST", "{% url 'urlExtractor' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.send(JSON.stringify({text:inputText.value})); 	
+}
+
+
+extract.addEventListener("click",url_extract);
+
+
+</script>
+{% endblock textScript %}

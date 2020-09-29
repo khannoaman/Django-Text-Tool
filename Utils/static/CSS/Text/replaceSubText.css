@@ -1,0 +1,66 @@
+textarea,#textarea
+{
+width: 48%;
+height: 40vh;
+margin: 0 1%;
+padding: 10px;
+resize: none;
+border:2px solid rgb(45,45,45);
+border-radius: 15px;
+}
+
+textarea:focus
+{
+	outline: none;
+	border:2px solid #1967be;
+}
+
+
+.in-out
+{
+	margin: 4% 0;
+}
+
+#mySelect
+{
+	width: 120px;
+	height: 40px;
+	border-radius: 20px;
+	padding: 0 20px;
+	text-align: center;
+	margin: 5px 0;
+	border:2px solid rgb(45,45,45);
+	background-color: rgb(45,45,45);
+	color: #dfeaf6;
+}
+
+input
+{
+
+	width: 35%;
+	height: 40px;
+	border-radius: 20px;
+	padding: 0 20px;
+	text-align: center;
+	margin: 20px 10px;
+	border:2px solid rgb(45,45,45);
+	background-color: rgb(45,45,45);
+	color: #dfeaf6;
+	outline: none;
+}
+
+.output .sub-found
+{
+	background-color: rgb(45,45,45);
+	color: #dfeaf6;
+	border:2px solid #1967be;
+	padding: 0 5px;
+	border-radius: 10px;
+	
+}
+
+.output
+{
+	overflow: auto;
+	white-space:pre-line;
+}

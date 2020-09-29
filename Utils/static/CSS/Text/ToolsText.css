@@ -1,0 +1,18 @@
+button
+{
+	margin: 5px;
+	padding: 3px 10px;
+	border-radius: 15px;
+	background-color: rgb(45,45,45);
+	color: #dfeaf6;
+	border: none;
+
+}
+
+
+button:focus
+{
+	outline: none;
+	box-shadow: 1px 1px 1px 1px #1967be;
+	
+}

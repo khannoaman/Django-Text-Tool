@@ -1,0 +1,23 @@
+/* Text Area Input */
+textarea
+{
+width: 100%;
+height: 40vh;
+margin: 3% 0;
+padding: 10px;
+resize: none;
+border:2px solid rgb(45,45,45);
+border-radius: 15px;
+}
+
+textarea:focus
+{
+	outline: none;
+	border:2px solid #1967be;
+}
+
+
+#convert-buttons button
+{
+	width: 155px;
+}

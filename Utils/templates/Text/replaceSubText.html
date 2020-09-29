@@ -1,0 +1,96 @@
+{% extends "Text/ToolsText.html" %}
+{% load static %}
+
+
+{% block textlinks %}
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/Text/replaceSubText.css' %}">
+{% endblock textlinks %}
+
+
+
+{% block Heading %}Replace Subtext From Text{% endblock Heading %}
+
+
+
+{% block textContent %}
+
+				<div class="in-out text-center">
+
+					<textarea class="input float-left" placeholder="Enter Your Text Here.." autofocus></textarea>
+
+					<div class="output float-left text-left" id="textarea">OUTPUT TEXT</div>
+
+					<input type="text" placeholder="Find" name="find">
+
+					<input type="text" placeholder="Replacement" name="replace">
+
+					<br>
+					<button id="mySelect">Replace</button>
+
+				</div>
+
+	
+{% endblock textContent %}
+
+{% block textScript %}
+	
+<script type="text/javascript">
+	
+let replace_btn=document.querySelector("#mySelect");
+let find=document.querySelector("input[name='find']");
+let replace=document.querySelector("input[name='replace']");
+
+function replaceText()
+{
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+if (this.readyState == 4 && this.status == 200) {
+let data = JSON.parse(this.responseText);
+outputText.innerHTML=data.sub_found
+outputText.style.border="2px solid #1967be";
+}
+};
+xhttp.open("POST", "{% url 'subTextReplacer' %}", true);
+xhttp.setRequestHeader("X-CSRFToken", '{{csrf_token}}');
+xhttp.send(JSON.stringify({text:inputText.value,find:find.value,replace:replace.value})); 	
+}
+
+
+replace_btn.addEventListener("click",replaceText);
+
+<!-- Undo -->
+function Undo()
+{
+	inputText.value=undo;
+	outputText.innerHTML='OUTPUT TEXT';
+	find.value='';
+	replace.value='';
+	handleChange();
+}
+
+<!-- Clear -->
+function Clear()
+{
+	undo=inputText.value;
+	inputText.value='';
+	outputText.innerHTML='OUTPUT TEXT';
+	find.value='';
+	replace.value='';
+	outputText.style.border="2px solid rgb(45,45,45)";
+	handleChange();
+}
+
+<!-- Copy -->
+function Copy()
+{
+	var range = document.createRange();
+    range.selectNode(outputText);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+	document.execCommand('copy');
+	window.getSelection().removeAllRanges();
+}
+
+
+</script>
+{% endblock textScript %}
